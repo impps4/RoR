@@ -1,6 +1,6 @@
 class HelloWorld
     def say_hello
-        "Hello World!"
+        p "Hello World!"
     end
 end
 
