@@ -8,22 +8,22 @@ class Integercheck
         output+1
       end
     end
-  end
+end
 
-  describe Integercheck do
+describe Integercheck do
 
-    describe ".myInt" do
-    intObj = Integercheck.new
+
+      intObj = Integercheck.new
         context "given integer is '5'" do
-        it "has to return 5" do
+          it "has to return 5" do
             expect(intObj.myInt('')).to eql(0)
+          end
         end
-      end
   
-      context "given integer is '10'" do
-        it "has to return 10" do
-          expect(intObj.myInt("10")).to eql(11)
+        context "given integer is '10'" do
+          it "has to return 10" do
+            expect(intObj.myInt("10")).to eql(11)
+          end
         end
-      end
-    end
-  end
+    
+end
