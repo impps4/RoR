@@ -9,7 +9,6 @@ class Dictionary
     def addAlphabet(alpha,word)
         @@contents[alpha] = word
         puts @@contents
-        puts
     end
 
     def searchAlphabet(alpha)
