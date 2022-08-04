@@ -1,7 +1,7 @@
 class PlayersLot
     def players
         @playersList = {}
-        @teamA = ["player1","player2","player3"]
+        @teamA = ["player1","player2","player3","player4","player5","player6","player7","player8","player9","player10","player11"]
 
         @teamA.each do |name|
             puts "Please provide the name of #{name} of your Team "
