@@ -1,7 +1,9 @@
 module GameRulesDefinations
     def typeDefinations
-        @ballsPerOver = 6
-        @totalOversPerInningsODI = 3
+        @ballsPerOver = 6.0
+        @ballCount = 0
+        @overCount = 0
+        @totalOversPerInningsODI = 1.0
         @totalOversPerInningsT20 = 1.3
     end
     def systemGenerator

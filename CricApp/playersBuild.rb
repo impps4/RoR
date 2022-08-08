@@ -12,13 +12,14 @@ class PlayersLot
     
     def players
         @playersScoreCard = {}
+        @outBatman = {}
         @strikePlayerRuns = 0
         @nonStrikePlayerRuns = 0
         @playersScore = {}
         @playersList = {}
         puts "Provide the Name of your Team.\n\n"
         @teamName = gets.chomp
-        for i in 1..11 do
+        for i in 1..3 do
      
             puts "Please provide the name of the player#{i} of your Team #{@teamName} "
                       @playersList[i] = gets.chomp
@@ -82,6 +83,30 @@ class PlayersLot
             @currentPlayers[@strikePlayer] =  @currentPlayers[@strikePlayer].to_i + @curBallRun.to_i
         end
         puts "Below is the score card #{@currentPlayers} \n\n"
+    end
+
+    def nextBatsman
+        
+        @outBatman = @strikePlayer  
+        loop do
+            puts "enter the next only from the Players Lot and who have not batted before \n\n"
+            upcomingBatsman = gets.chomp
+           
+            if (@playersList.has_value?(upcomingBatsman) && @outBatman.has_value?(upcomingBatsman) == false)
+                @nextBatsman = upcomingBatsman
+               break
+            end
+        end  
+    end
+
+    def ballsAndOversCount
+        if (@ballCount % 6)==0
+            @overCount = @overCount = @ballCount.to_f/6.0
+        elsif (@ballCount % 6)!=0
+            @overCount = (@ballCount/6).to_f + ((@ballCount%6)/10.0)
+        end
+        puts "Overs Completed are #{@overCount}"
+        
     end
 end
 
