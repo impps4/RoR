@@ -12,14 +12,15 @@ class PlayersLot
     
     def players
         @playersScoreCard = {}
-        @outBatman = {}
+        @nonAvailableBatsman = Array.new
+        @outBatmanCount = 0
         @strikePlayerRuns = 0
         @nonStrikePlayerRuns = 0
         @playersScore = {}
         @playersList = {}
         puts "Provide the Name of your Team.\n\n"
         @teamName = gets.chomp
-        for i in 1..3 do
+        for i in 1..11 do
      
             puts "Please provide the name of the player#{i} of your Team #{@teamName} "
                       @playersList[i] = gets.chomp
@@ -48,6 +49,8 @@ class PlayersLot
             end
         end
         puts "Your Striker is #{@strikePlayer} and Non-Striker is #{@nonStrikePlayer}\n\n"
+        @nonAvailableBatsman.append(@strikePlayer)
+        @nonAvailableBatsman.append(@nonStrikePlayer)
         
     end
 
@@ -86,14 +89,11 @@ class PlayersLot
     end
 
     def nextBatsman
-        
-        @outBatman = @strikePlayer  
-        loop do
-            puts "enter the next only from the Players Lot and who have not batted before \n\n"
-            upcomingBatsman = gets.chomp
-           
-            if (@playersList.has_value?(upcomingBatsman) && @outBatman.has_value?(upcomingBatsman) == false)
-                @nextBatsman = upcomingBatsman
+        loop do   
+            puts "enter the next batsman only from the Players Lot and who have not batted before \n\n"
+            @upcomingBatsman = gets.chomp
+            if ((@playersList.has_value?(@upcomingBatsman)) && !(@nonAvailableBatsman.include? @upcomingBatsman) && (@outBatmanCount<10))
+                @strikePlayer = @upcomingBatsman
                break
             end
         end  

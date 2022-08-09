@@ -6,16 +6,17 @@ class Gameplay < PlayersLot
         loop do
             puts "enter the runs in [1,2,3,4,6]\n\n"
             @curBallRun = gets.chomp.to_i
-            
+                    
             @systemRuns = @systemBowlingNumberLot.sample
             puts "system generated number is #{@systemRuns}\n\n"
-            if @overCount <= @totalOversPerInningsODI
+            if (@overCount <= @totalOversPerInningsODI && @outBatmanCount <= 10)
                 if @systemRuns == "Out!" || (@curBallRun == @systemRuns)
-                    puts "Your batsman is out since system generated number is also #{@systemRuns}\n\n"
+                    puts "Your batsman is out since system generated number is #{@systemRuns}\n\n"
                     @ballCount+=1
                     ballsAndOversCount
+                    @outBatmanCount+=1
                     nextBatsman
-                break
+                    puts "New batsman entered the field is #{@strikePlayer}\n\n"
                 elsif @curBallRun == 1 || @curBallRun == 3
                     playerRuns(@curBallRun)
                     playersSwap
@@ -25,9 +26,10 @@ class Gameplay < PlayersLot
                     playerRuns(@curBallRun)
                     @ballCount+=1
                     ballsAndOversCount
-                end
+                    end
             elsif @overCount > @totalOversPerInningsODI
                 puts "Your Innings have been ompleted!"
+                break
             end
         end
     end

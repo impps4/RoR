@@ -3,8 +3,8 @@ module GameRulesDefinations
         @ballsPerOver = 6.0
         @ballCount = 0
         @overCount = 0
-        @totalOversPerInningsODI = 1.0
-        @totalOversPerInningsT20 = 1.3
+        @totalOversPerInningsODI = 5.0
+        @totalOversPerInningsT20 = 3.0
     end
     def systemGenerator
         @systemBowlingNumberLot = Array[1,2,3,4,6,"Out!"]
