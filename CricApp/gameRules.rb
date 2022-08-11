@@ -7,8 +7,9 @@ module GameRulesDefinations
         @totalOversPerInningsT20 = 3.0
     end
     def systemGenerator
-        @systemBowlingNumberLot = Array[1,2,3,4,6,"Out!"]
+        @systemBowlingNumberLot = Array[1,2,3,4,6,"No Ball!"]
         @systemBattingNumberLot = Array[1,2,3,4,6]
+        @freeHitBallRand = Array[1,2,3,4,6]
     end
 
     def toss

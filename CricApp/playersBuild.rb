@@ -14,7 +14,11 @@ class PlayersLot
         @playersScoreCard = {}
         @nonAvailableBatsman = Array.new
         @outBatmanCount = 0
+        @strikerBallsFaced = 0
+        @nonStrikerBallsFaced = 0
+        @matchStats = Array.new
         @strikePlayerRuns = 0
+        @notFreeHitBall = ''
         @nonStrikePlayerRuns = 0
         @playersScore = {}
         @playersList = {}
@@ -73,6 +77,7 @@ class PlayersLot
         @tempPlayer = @strikePlayer
         @strikePlayer = @nonStrikePlayer
         @nonStrikePlayer = @tempPlayer
+        @nonStrikerBallsFaced+=1
         puts "Now the Striker is #{@strikePlayer} and the Non-Striker is #{@nonStrikePlayer} \n\n"
     end
 
@@ -107,6 +112,10 @@ class PlayersLot
         end
         puts "Overs Completed are #{@overCount}"
         
+    end
+
+    def matchSummary
+
     end
 end
 
