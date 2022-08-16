@@ -77,7 +77,6 @@ class PlayersLot
         @tempPlayer = @strikePlayer
         @strikePlayer = @nonStrikePlayer
         @nonStrikePlayer = @tempPlayer
-        @nonStrikerBallsFaced+=1
         puts "Now the Striker is #{@strikePlayer} and the Non-Striker is #{@nonStrikePlayer} \n\n"
     end
 
@@ -88,7 +87,7 @@ class PlayersLot
     def playerRuns(curBallRun)
         @curBallRun = curBallRun
         if @strikePlayer && @playersList.has_value?(@strikePlayer)
-            @currentPlayers[@strikePlayer] =  @currentPlayers[@strikePlayer].to_i + @curBallRun.to_i
+            @currentPlayers[@strikePlayer] =  @currentPlayers[@strikePlayer] + @curBallRun
         end
         puts "Below is the score card #{@currentPlayers} \n\n"
     end
@@ -115,7 +114,22 @@ class PlayersLot
     end
 
     def matchSummary
-
+        time = Time.new
+        @timeStamp = (time.strftime("%d%m%Y")).to_s
+        @fileName = @timeStamp.concat(@teamName)
+        #File.open("#{@fileName}.txt", "w+")
+        fileobject = File.new("#{@fileName}.txt", "w+")
+        fileobject.puts("Match summary - #{@teamName} ")
+        fileobject.puts("Player Runs")
+        @totalRuns = 0
+        @currentPlayers.each do |playr, scr|
+            
+            fileobject.puts("#{playr.to_s}        #{scr.to_i}")
+            @totalRuns = @totalRuns + scr.to_i
+            
+        end
+        fileobject.puts("1st Innings #{@totalRuns}/#{@outBatmanCount}(#{(@overCount).round(1)})")
+        fileobject.close
     end
 end
 

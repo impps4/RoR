@@ -14,7 +14,7 @@ class Gameplay < PlayersLot
                         
                 @systemRuns = @systemBowlingNumberLot.sample
                 puts "system generated number is #{@systemRuns}\n\n"
-                if (@overCount.round(1) <= @totalOversPerInningsODI) && (@outBatmanCount <= 10)
+                if ((@overCount.round(1)) <= @totalOversPerInningsODI) && (@outBatmanCount <= 3)
                     if (@curBallRun == @systemRuns)
                         puts "Your batsman is out since system generated number is #{@systemRuns}\n\n"
                         
@@ -23,35 +23,37 @@ class Gameplay < PlayersLot
                         @outBatmanCount+=1
                         nextBatsman
                         puts "New batsman entered the field is #{@strikePlayer}\n\n"
+                        matchSummary
                     elsif @curBallRun == 1 || @curBallRun == 3
-                        
+                        playerRuns(@curBallRun)
                         @ballCount+=1
                         ballsAndOversCount
                         if (@ballCount % 6)!=0
                             playersSwap
                         end
-                        playerRuns(@curBallRun)
+                        matchSummary
                     elsif @curBallRun % 2 == 0
-                        
+                        playerRuns(@curBallRun)
                         @ballCount+=1
                         ballsAndOversCount
-                        playerRuns(@curBallRun)
+                        matchSummary
                         
                     elsif (@systemRuns == "No Ball!") && (@curBallRun == 1 || @curBallRun == 3)
-                        
+                        playerRuns(@curBallRun)
                         ballsAndOversCount
                         if (@ballCount % 6)!=0
                             playersSwap
                         end
-                        playerRuns(@curBallRun)
                         @notFreeHitBall = 'Yes'
+                        matchSummary
                     elsif (@systemRuns == "No Ball!") && (@curBallRun % 2 == 0)
-                        ballsAndOversCount
                         playerRuns(@curBallRun)
+                        ballsAndOversCount
                         @notFreeHitBall = 'Yes'
+                        matchSummary
                     end
-                elsif @overCount.round(1) > @totalOversPerInningsODI
-                    puts "Your Innings have been ompleted!"
+                elsif @overCount.round(1) >= @totalOversPerInningsODI
+                    puts "Your Innings have been Completed!"
                     break
                 end
             end
