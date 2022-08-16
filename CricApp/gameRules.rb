@@ -3,6 +3,7 @@ module GameRulesDefinations
         @ballsPerOver = 6.0
         @ballCount = 0
         @overCount = 0
+        @maxWickets = 10
         @totalOversPerInningsODI = 5.0
         @totalOversPerInningsT20 = 3.0
     end

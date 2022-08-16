@@ -14,16 +14,24 @@ class Gameplay < PlayersLot
                         
                 @systemRuns = @systemBowlingNumberLot.sample
                 puts "system generated number is #{@systemRuns}\n\n"
-                if ((@overCount.round(1)) <= @totalOversPerInningsODI) && (@outBatmanCount < 10)
+                if ((@overCount.round(1)) <= @totalOversPerInningsODI)
                     if (@curBallRun == @systemRuns)
                         puts "Your batsman is out since system generated number is #{@systemRuns}\n\n"
                         
                         @ballCount+=1
                         ballsAndOversCount
                         @outBatmanCount+=1
-                        nextBatsman
-                        puts "New batsman entered the field is #{@strikePlayer}\n\n"
-                        matchSummary
+                        if @outBatmanCount < @maxWickets
+                            nextBatsman
+                            puts "New batsman entered the field is #{@strikePlayer}\n\n"
+                            matchSummary
+                        elsif @outBatmanCount == @maxWickets
+                            matchSummary
+                            puts "All Your batsmen are out!\n\n"
+                            matchSummary
+                            break
+                        end
+
                     elsif @curBallRun == 1 || @curBallRun == 3
                         playerRuns(@curBallRun)
                         @ballCount+=1
@@ -52,7 +60,7 @@ class Gameplay < PlayersLot
                         @notFreeHitBall = 'Yes'
                         matchSummary
                     end
-                elsif @overCount.round(1) >= @totalOversPerInningsODI
+                elsif (@overCount.round(1) == @totalOversPerInningsODI) || (@outBatmanCount == @maxWickets)
                     puts "Your Innings have been Completed!"
                     break
                 end

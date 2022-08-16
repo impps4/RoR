@@ -24,7 +24,7 @@ class PlayersLot
         @playersList = {}
         puts "Provide the Name of your Team.\n\n"
         @teamName = gets.chomp
-        for i in 1..11 do
+        for i in 1..3 do
      
             puts "Please provide the name of the player#{i} of your Team #{@teamName} "
                       @playersList[i] = gets.chomp
@@ -98,6 +98,7 @@ class PlayersLot
             @upcomingBatsman = gets.chomp
             if ((@playersList.has_value?(@upcomingBatsman)) && !(@nonAvailableBatsman.include? @upcomingBatsman) && (@outBatmanCount<10))
                 @strikePlayer = @upcomingBatsman
+                @currentPlayers[@strikePlayer] = 0
                break
             end
         end  
@@ -106,21 +107,31 @@ class PlayersLot
     def ballsAndOversCount
         if (@ballCount % 6)==0
             @overCount = @overCount = @ballCount.to_f/6.0
+            puts "Match summary - #{@teamName} "
+            puts "Player       Runs"
+            @Runs = 0
+            @currentPlayers.each do |playr, scr|
+
+                puts "#{playr.to_s}        #{scr.to_i}"
+                puts "---------------------------------------"
+                @Runs = @Runs + scr.to_i
+            
+            end
+
+            puts "\n1st Innings #{@Runs}/#{@outBatmanCount}(#{(@overCount).round(1)})"
         elsif (@ballCount % 6)!=0
             @overCount = (@ballCount/6).to_f + ((@ballCount%6)/10.0)
-        end
-        puts "Overs Completed are #{@overCount}"
-        
+        end   
+        puts "Overs Completed are #{@overCount}"    
     end
 
     def matchSummary
         time = Time.new
         @timeStamp = (time.strftime("%d%m%Y")).to_s
         @fileName = @timeStamp.concat(@teamName)
-        #File.open("#{@fileName}.txt", "w+")
         fileobject = File.new("#{@fileName}.txt", "w+")
         fileobject.puts("Match summary - #{@teamName} ")
-        fileobject.puts("Player Runs")
+        fileobject.puts("Player       Runs")
         @totalRuns = 0
         @currentPlayers.each do |playr, scr|
             
