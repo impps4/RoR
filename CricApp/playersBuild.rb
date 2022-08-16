@@ -24,7 +24,7 @@ class PlayersLot
         @playersList = {}
         puts "Provide the Name of your Team.\n\n"
         @teamName = gets.chomp
-        for i in 1..3 do
+        for i in 1..11 do
      
             puts "Please provide the name of the player#{i} of your Team #{@teamName} "
                       @playersList[i] = gets.chomp

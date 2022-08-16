@@ -60,7 +60,7 @@ class Gameplay < PlayersLot
                         @notFreeHitBall = 'Yes'
                         matchSummary
                     end
-                elsif (@overCount.round(1) == @totalOversPerInningsODI) || (@outBatmanCount == @maxWickets)
+                elsif (@overCount.round(1) == @totalOversPerInningsODI) || (@outBatmanCount == 2)
                     puts "Your Innings have been Completed!"
                     break
                 end
