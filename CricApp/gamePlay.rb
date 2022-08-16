@@ -14,7 +14,7 @@ class Gameplay < PlayersLot
                         
                 @systemRuns = @systemBowlingNumberLot.sample
                 puts "system generated number is #{@systemRuns}\n\n"
-                if ((@overCount.round(1)) <= @totalOversPerInningsODI) && (@outBatmanCount <= 3)
+                if ((@overCount.round(1)) <= @totalOversPerInningsODI) && (@outBatmanCount < 10)
                     if (@curBallRun == @systemRuns)
                         puts "Your batsman is out since system generated number is #{@systemRuns}\n\n"
                         
