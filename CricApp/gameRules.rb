@@ -10,6 +10,7 @@ module GameRulesDefinations
     def systemGenerator
         @systemBowlingNumberLot = Array[1,2,3,4,6,"No Ball!"]
         @systemBattingNumberLot = Array[1,2,3,4,6]
+        @systemBattingScore = rand(20...40)
         @freeHitBallRand = Array[1,2,3,4,6]
     end
 
