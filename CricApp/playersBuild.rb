@@ -10,15 +10,66 @@ class PlayersLot
         toss
     end
     
+    def matchType
+        puts "Choose the match type!\n\n1. ODI\n\n2. T20I"
+        @mType = gets.chomp.to_i 
+        case @mType
+
+        when  1
+            @totOvers = @totalOversPerInningsODI
+        when  2
+            @totOvers = @totalOversPerInningsT20
+        else
+            puts  "you have choosen different format that is not in the list. Hence by default we are taking the ODI"
+            @totOvers = @totalOversPerInningsODI
+        end
+    end
+
+    def matchToss
+        loop do
+            puts "Welcome to the Toss!\n\n"
+            puts "Choose between\n\n1. Heads\n\n2. Tails"
+            @mToss = gets.chomp.to_i
+            if @mToss == 1 || @mToss == 2
+                if @mToss ==1
+                    puts "You have choosen Heads!"
+                elsif @mToss ==2
+                    puts "You have choosen Tails!"
+                end
+            break
+            end
+            
+        end
+    end
+
+    def inningsDecider
+        if (@mToss == 1 && @systemToss == "Heads") || (@mToss == 2 && @systemToss == "Tails")
+            puts "You have won the toss since system has also generated #{@systemToss}!\n\n Choose whether to bat or ball\n\n"
+            loop do
+                puts "1. Bat\n\n2. Bowl"
+                @batOrBowl = gets.chomp.to_i
+                if @batOrBowl == 1
+                    puts "you have choosen to bat first!"
+                    break
+                elsif @batOrBowl ==2
+                    puts "you have choosen to bowl first!"
+                    break
+                end
+            end
+        elsif @sysInningsDecider == "Bat"
+            puts "system has Scored #{@systemBattingScore}\n\n"
+
+        end
+    end
+
     def players
         @playersScoreCard = {}
         @nonAvailableBatsman = Array.new
         @outBatmanCount = 0
-        @strikerBallsFaced = 0
         @nonStrikerBallsFaced = 0
         @matchStats = Array.new
         @strikePlayerRuns = 0
-        @notFreeHitBall = 'No'
+        @FreeHitBall = 'No'
         @nonStrikePlayerRuns = 0
         @playersScore = {}
         @playersList = {}
@@ -73,6 +124,10 @@ class PlayersLot
         puts "Your Captain is #{@captainPlayer}\n\n"
     end
 
+    def playerRunsInitialization
+        @currentPlayers = {@strikePlayer =>[0,0],@nonStrikePlayer=>[0,0]}
+    end
+
     def playersSwap
         @tempPlayer = @strikePlayer
         @strikePlayer = @nonStrikePlayer
@@ -80,19 +135,16 @@ class PlayersLot
         puts "Now the Striker is #{@strikePlayer} and the Non-Striker is #{@nonStrikePlayer} \n\n"
     end
 
-    def playerRunsInitialization
-        @currentPlayers = {@strikePlayer =>[0,0],@nonStrikePlayer=>[0,0]}
-    end
+    
 
     def playerRuns(curBallRun)
         @curBallRun = curBallRun
         if @strikePlayer && @playersList.has_value?(@strikePlayer)
             @currentPlayers[@strikePlayer][0] =  @currentPlayers[@strikePlayer][0] + @curBallRun
             if @systemRuns != "No Ball!"
-                @currentPlayers[@strikePlayer][1] += 1
+                @currentPlayers[@strikePlayer][1] = @currentPlayers[@strikePlayer][1] + 1
             end      
         end
-        puts "Below is the score card #{@currentPlayers} \n\n"
     end
 
     def nextBatsman
@@ -114,17 +166,17 @@ class PlayersLot
             puts "Player       Runs         Strike-rate"
             @Runs = 0
             @currentPlayers.each do |playr, scr|
-                if @strikerBallsFaced !=0
-                    puts "#{playr.to_s}             #{scr[0].to_i}(#{scr[1].to_i})      #{(((@Runs)*100)/@strikerBallsFaced).round(2)} "
-                elsif @strikerBallsFaced ==0
-                    puts "#{playr.to_s}             #{scr[0].to_i}(#{scr[1].to_i})      ---"
+                if scr[1] !=0
+                    puts "#{playr.to_s}             #{scr[0].to_i}"
+                elsif scr[1] ==0
+                    puts "#{playr.to_s}             #{scr[0].to_i}     ---"
                 end
                     puts "---------------------------------------"
                     @Runs = @Runs + scr[0].to_i
-                    @strikerBallsFaced = @strikerBallsFaced + scr[1].to_i
+                    scr[1] = scr[1].to_i + scr[1].to_i
             end
 
-            puts "\n1st Innings #{@Runs}/#{@outBatmanCount}(#{(@overCount).round(1)})"
+            puts "\n Innings Score #{@Runs}/#{@outBatmanCount}(#{(@overCount).round(1)})"
         elsif (@ballCount % 6)!=0
             @overCount = (@ballCount/6).to_f + ((@ballCount%6)/10.0)
         end   
@@ -140,13 +192,13 @@ class PlayersLot
         fileobject.puts("Player       Runs")
         @totalRuns = 0
         @currentPlayers.each do |playr, scr|
-            if @strikerBallsFaced !=0
-                fileobject.puts("#{playr.to_s}             #{scr[0].to_i}(#{scr[1].to_i})      #{(((@totalRuns)*100)/@strikerBallsFaced).round(2)} ")
-            elsif @strikerBallsFaced ==0
-                fileobject.puts("#{playr.to_s}             #{scr[0].to_i}(#{scr[1].to_i})      ---")
+            if scr[1] !=0
+                fileobject.puts("#{playr.to_s}             #{scr[0].to_i}")
+            elsif scr[1] ==0
+                fileobject.puts("#{playr.to_s}             #{scr[0].to_i}      ---")
             end
             @totalRuns = @totalRuns + scr[0].to_i
-            @strikerBallsFaced = @strikerBallsFaced + scr[1].to_i
+            scr[1] = scr[1] + scr[1].to_i
             
         end
         fileobject.puts("1st Innings #{@totalRuns}/#{@outBatmanCount}(#{(@overCount).round(1)})")

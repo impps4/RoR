@@ -16,6 +16,8 @@ module GameRulesDefinations
 
     def toss
         @toss = Array["Heads","Tails"]
+        @sysBatBowl = Array["Bat","Bowl"]
+        @sysInningsDecider = @sysBatBowl.sample
         @systemToss = @toss.sample
     end
 end
